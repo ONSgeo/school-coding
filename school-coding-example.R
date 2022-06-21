@@ -22,7 +22,8 @@ LADs <- st_read("data/LAD_2021_with_SAM.shp")
 #we'll look at the attributes in the data
 glimpse(LADs)
 
-#when we loaded the data the console said it was a 'simple feature collection' which means it's geographic data
+#when we loaded the data the console said it was a 'simple feature collection' 
+#which means it's geographic data
 #let's take a look at it by plotting a quick tmap
 qtm(LADs)
 
@@ -40,7 +41,7 @@ glimpse(population)
 
 #use Janitor to clean up the weirdly formatted column headers to make them easier to use
 population <- clean_names(population)
-#take a look to see how the names chaned
+#take a look to see how the names changed
 glimpse(population)
 
 
@@ -78,7 +79,8 @@ glimpse(LADs_population)
 pal <- colorBin(palette = "Blues", domain = LADs_population$student_density, bins = 8, pretty = FALSE)
 
 #We're going to make some labels. Leaflet uses HTML to display labels so we can format our labels nicely.
-LADs_population$labels <- paste("<strong>", LADs_population$LAD21NM, "</strong>", "<br>", LADs_population$student_density) %>% 
+LADs_population$labels <- paste("<strong>", LADs_population$LAD21NM, "</strong>", "<br>", 
+                                LADs_population$student_density) %>% 
                             lapply(htmltools::HTML)
 
 #Then we make our map.
@@ -99,7 +101,7 @@ map <- leaflet(LADs_population) %>%
               label = LADs_population$labels) %>% 
   addLegend("bottomright", 
             pal = pal, 
-            values = ~student_pct,
+            values = ~student_density,
             title = "population density for 14-18s")
 
 #Now let's take a look at our map.
